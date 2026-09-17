@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SplitUPI — Smart UPI Collection</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><span class="brand-mark">₹</span><span>Split<span>UPI</span></span></div>
+    <div class="tagline">Smart UPI Collection</div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">PAYMENT TOOL</p>
+      <h1>Create split UPI payments.</h1>
+      <p>Generate multiple amount-specific QR codes from one total and create a clean printable receipt.</p>
+    </section>
+
+    <section class="card form-card">
+      <div class="section-title">
+        <div>
+          <h2>Payment details</h2>
+          <p>Enter the recipient and collection information.</p>
+        </div>
+      </div>
+
+      <form id="paymentForm" novalidate>
+        <div class="grid two">
+          <label>
+            <span>UPI ID <b>*</b></span>
+            <input id="upiId" type="text" placeholder="example@upi" autocomplete="off" required>
+            <small class="error" id="upiError"></small>
+          </label>
+          <label>
+            <span>Account holder name <b>*</b></span>
+            <input id="holderName" type="text" placeholder="Rahul Kumar" required>
+            <small class="error" id="nameError"></small>
+          </label>
+        </div>
+
+        <div class="grid two">
+          <label>
+            <span>Total amount <b>*</b></span>
+            <div class="money-input"><i>₹</i><input id="totalAmount" type="number" min="0.01" step="0.01" placeholder="6000" required></div>
+            <small class="error" id="totalError"></small>
+          </label>
+          <label>
+            <span>Amount per QR <b>*</b></span>
+            <div class="money-input"><i>₹</i><input id="splitAmount" type="number" min="0.01" step="0.01" placeholder="1999" required></div>
+            <small class="error" id="splitError"></small>
+          </label>
+        </div>
+
+        <label>
+          <span>Payment note <em>Optional</em></span>
+          <input id="note" type="text" maxlength="80" placeholder="College fees">
+        </label>
+
+        <div class="preview" id="splitPreview">
+          <div>
+            <span>Split preview</span>
+            <strong id="previewText">Enter amounts to preview</strong>
+          </div>
+          <div class="preview-total" id="previewTotal">—</div>
+        </div>
+
+        <button class="primary-btn" type="submit">Generate QR codes <span>→</span></button>
+      </form>
+    </section>
+
+    <section class="results hidden" id="results">
+      <div class="results-head">
+        <div>
+          <p class="eyebrow">READY TO COLLECT</p>
+          <h2>Split payment QR codes</h2>
+          <p id="resultSummary"></p>
+        </div>
+        <button class="secondary-btn" id="newPayment">Create new</button>
+      </div>
+
+      <div class="recipient-strip">
+        <div><span>Recipient</span><strong id="outName"></strong></div>
+        <div><span>UPI ID</span><strong id="outUpi"></strong></div>
+        <div><span>Total</span><strong id="outTotal"></strong></div>
+      </div>
+
+      <div class="qr-grid" id="qrGrid"></div>
+
+      <div class="actions">
+        <button class="primary-btn" id="printBtn">Print receipt <span>↗</span></button>
+        <button class="secondary-btn" id="printQrsBtn">Print QR sheet</button>
+      </div>
+
+      <div class="receipt card" id="receipt">
+        <div class="receipt-head">
+          <div class="brand"><span class="brand-mark">₹</span><span>Split<span>UPI</span></span></div>
+          <div class="receipt-label">PAYMENT RECEIPT</div>
+        </div>
+        <div class="receipt-meta">
+          <div><span>Receipt no.</span><strong id="receiptNo"></strong></div>
+          <div><span>Date & time</span><strong id="receiptDate"></strong></div>
+        </div>
+        <hr>
+        <div class="receipt-recipient">
+          <span>Pay to</span>
+          <strong id="receiptName"></strong>
+          <small id="receiptUpi"></small>
+        </div>
+        <div class="receipt-note" id="receiptNoteWrap"><span>Note</span><strong id="receiptNote"></strong></div>
+        <table>
+          <thead><tr><th>Payment</th><th>Amount</th></tr></thead>
+          <tbody id="receiptRows"></tbody>
+          <tfoot><tr><th>Total</th><th id="receiptTotal"></th></tr></tfoot>
+        </table>
+        <p class="receipt-disclaimer">This receipt represents generated UPI payment instructions. It does not confirm that payment has been received.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>SplitUPI • UPI QR generator & receipt tool</footer>
+  <script src="script.js"></script>
+</body>
+</html>
